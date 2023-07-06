@@ -5,7 +5,7 @@ Réalisation d"un Blog afin de m'entrainer d'avantage sur React.
 ## Technos / Modules
 
 - **React**
-- **React Router**
+- **React-router-dom**
 - **Firebase** afin d'avoir une BDD rapide d'utilisation
 - **Axios**
 - 
