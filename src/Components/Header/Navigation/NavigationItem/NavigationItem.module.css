@@ -1,0 +1,20 @@
+.NavigationItem {
+	margin: 5px;
+}
+
+.NavigationItem a {
+	text-decoration: none;
+	font-size: 1.1rem;
+	font-weight: 500;
+	color: #8d1a25;
+	transition: 300ms;
+	padding: 5px 7px;
+}
+
+.NavigationItem a:hover {
+	color: #8d93ab;
+}
+
+.active {
+	box-shadow: 0 2px 0 #8d93ab;
+}

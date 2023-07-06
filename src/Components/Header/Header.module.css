@@ -1,0 +1,36 @@
+.Header {
+	box-shadow: 0 5px 20px #8d93ab;
+	padding: 15px 20px;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.logo {
+	display: flex;
+	gap: 10px;
+}
+
+.logo img {
+	width: 70px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px #8d93ab;
+}
+
+.logo p {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	color: #8d1a25;
+	font-weight: 700;
+	font-size: 1.3rem;
+	margin: auto;
+	text-shadow: 0 0 10px white;
+}
+
+.logo p span {
+	font-size: 1.8rem;
+}
