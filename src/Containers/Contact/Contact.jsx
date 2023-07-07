@@ -1,6 +1,7 @@
 // librairies
 import { Outlet, useNavigate } from 'react-router-dom';
 import classes from './Contact.module.css';
+import routes from '../../routes';
 
 // components
 
@@ -9,16 +10,17 @@ function Contact() {
   const navigate = useNavigate();
   // functions
   const emailClickedHandler = () => {
-    navigate('email');
+    navigate(routes.EMAIL);
   };
 
   const phoneClickedHandler = () => {
-    navigate('phone');
+    navigate(routes.PHONE);
   };
 	
   return (
     <div>
       <h1>Contact</h1>
+      <p>Par quel moyens de contact souhaitez-vous échanger ?</p>
       <button
         className={classes.button}
         onClick={emailClickedHandler}

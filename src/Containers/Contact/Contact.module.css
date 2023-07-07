@@ -9,6 +9,7 @@
 	font-weight: 600;
 }
 
+.button:focus,
 .button:hover {
 	filter: brightness(130%);
 }
