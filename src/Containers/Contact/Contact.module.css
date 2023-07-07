@@ -1,4 +1,4 @@
-.button {
+:global .button {
 	margin: 0 5px;
 	padding: 10px 15px;
 	cursor: pointer;
@@ -7,10 +7,11 @@
 	border: 1px solid white;
 	border-radius: 5px;
 	font-weight: 600;
+	font-size: 0.9rem;
 }
 
-.button:focus,
-.button:hover {
+:global .button:focus,
+:global .button:hover {
 	filter: brightness(130%);
 }
 

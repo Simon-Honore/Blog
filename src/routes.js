@@ -2,8 +2,9 @@ const routes = {
   HOME: '/',
   CONTACT:'contact',
   EMAIL: 'email',
-  PHONE: 'phone',
+  PHONE: 'telephone',
   ARTICLES: 'articles',
+  CREATEARTICLE: 'admin/creer-un-article'
 };
 
 export default routes;

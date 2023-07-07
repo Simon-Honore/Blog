@@ -22,13 +22,13 @@ function Contact() {
       <h1>Contact</h1>
       <p>Par quel moyens de contact souhaitez-vous échanger ?</p>
       <button
-        className={classes.button}
+        className='button'
         onClick={emailClickedHandler}
       >
 			Email
       </button>
       <button 
-        className={classes.button}
+        className='button'
         onClick={phoneClickedHandler}
       >
 			Téléphone

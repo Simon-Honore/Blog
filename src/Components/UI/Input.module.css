@@ -1,0 +1,27 @@
+.Input {
+	margin-bottom: 20px;
+}
+
+.Input label {
+	text-transform: uppercase;
+	font-weight: 600;
+	color: #8d93ab;
+	display: block;
+	margin-bottom: 5px;
+}
+
+.Input input,
+.Input textarea,
+.Input select {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #d6e0f0;
+	border-radius: 5px;
+	font-size: 1rem;
+}
+
+.Input input::placeholder,
+.Input textarea::placeholder,
+.Input select::placeholder {
+	color: #8d93ab;
+}
