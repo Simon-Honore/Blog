@@ -7,7 +7,6 @@ import Input from '../../../Components/UI/Input';
 
 function CreateArticle() {
   // states 
-
   const [inputs, setInputs] = useState([
     {
       id: 'title',
@@ -50,16 +49,25 @@ function CreateArticle() {
     }
   ]);
 
+  // fonctions
+  const inputChangedHandler = (event, id) => {
+    const newInputs = [...inputs];
+    newInputs.find(input => input.id === id).value = event.target.value;
+    setInputs(newInputs);
+  };
+
   // variable JSX 
   const form = (
     <form className={classes.CreateArticle}>
       {inputs.map(input => (
         <Input
           key={input.id}
+          id={input.id}
           value={input.value}
           label={input.label}
           config={input.elementConfig}
           elementType={input.elementType}
+          changed={(event) => inputChangedHandler(event, input.id)}
         />
       ))}
       <button type='submit' className='button'>Envoyer</button>

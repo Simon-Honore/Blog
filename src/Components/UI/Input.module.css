@@ -7,7 +7,8 @@
 	font-weight: 600;
 	color: #8d93ab;
 	display: block;
-	margin-bottom: 5px;
+	margin: 0 0 5px 5px;
+	text-align: start;
 }
 
 .Input input,
@@ -18,10 +19,19 @@
 	border: 1px solid #d6e0f0;
 	border-radius: 5px;
 	font-size: 1rem;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+		'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	color: #393b44;
 }
 
 .Input input::placeholder,
 .Input textarea::placeholder,
 .Input select::placeholder {
 	color: #8d93ab;
+}
+
+.Input input:focus,
+.Input textarea:focus,
+.Input select:focus {
+	outline-color: #8d93ab;
 }
