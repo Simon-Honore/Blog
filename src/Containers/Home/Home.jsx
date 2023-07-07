@@ -1,6 +1,6 @@
-//external
+//librairies
 
-//internal
+//components
 
 
 function Home() {

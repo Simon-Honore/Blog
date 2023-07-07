@@ -1,8 +1,8 @@
-// external
+// librairies
 import { NavLink } from 'react-router-dom';
-
-// internal
 import classes from './NavigationItem.module.css';
+
+// components
 
 function NavigationItem({ to, children }) {
   return (

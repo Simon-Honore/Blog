@@ -1,7 +1,7 @@
-// external
+// librairies
 import { useParams } from 'react-router-dom';
 
-// internal 
+// components 
 
 function Article() {
   const { articleId } = useParams();

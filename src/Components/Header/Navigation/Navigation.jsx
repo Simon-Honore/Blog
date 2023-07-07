@@ -1,8 +1,8 @@
-//external 
-
-//internal
-import NavigationItem from './NavigationItem/NavigationItem';
+//librairies 
 import classes from './Navigation.module.css';
+
+//components
+import NavigationItem from './NavigationItem/NavigationItem';
 
 function Navigation() {
   return (
