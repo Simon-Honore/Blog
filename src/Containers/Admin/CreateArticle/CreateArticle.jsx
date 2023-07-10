@@ -1,11 +1,17 @@
 // librairies 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classes from './CreateArticle.module.css';
+import axios from '../../../config/axios-firebase';
+import routes from '../../../config/routes';
 
 // composants
 import Input from '../../../Components/UI/Input';
 
 function CreateArticle() {
+  // hooks
+  const navigate = useNavigate();
+
   // states 
   const [inputs, setInputs] = useState([
     {
@@ -60,15 +66,15 @@ function CreateArticle() {
       errorMessage: "L'auteur est requis, il doit faire entre 2 et 30 caractères"
     },
     {
-      id: 'etat',
+      id: 'draft',
       elementType: 'select',
       elementConfig : {
         options: [
-          {value: 'Brouillon'},
-          {value: 'Publié'}
+          {value: true, displayValue: 'Brouillon'},
+          {value: false, displayValue: 'Publié'}
         ]
       },
-      value: '', 
+      value: true, 
       label: "État de l'article",
       valid: true,
       validation: {},
@@ -117,7 +123,17 @@ function CreateArticle() {
 
   const formSubmitHandler = event => {
     event.preventDefault();
-    console.log('sending');
+    const article = {};
+    inputs.map(input => {
+      const value = typeof input.value === 'string' ? input.value.trim() : input.value;
+      return article[input.id] = value;
+    });
+    axios.post('/articles.json', article)
+      .then(response => {
+        console.log(response);
+        navigate(routes.ARTICLES, {replace: true});
+      })
+      .catch(error => console.log(error));
   };
 
   // variable JSX 
@@ -137,7 +153,7 @@ function CreateArticle() {
           changed={(event) => inputChangedHandler(event, input.id)}
         />
       ))}
-      <button type='submit' className='button' disabled={!formIsValid}>Envoyer</button>
+      <button type='submit' className='button' disabled={!formIsValid}>Enregistrer un article</button>
     </form>
   );
 

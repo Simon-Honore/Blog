@@ -14,7 +14,6 @@ function Input({
   errorMessage,
   changed}) {
 		
-  console.log(id, ' >> ','touched : ', touched,' valid : ', valid ,valid && touched);
   //variables JSX
   let inputElement;
   switch(elementType) {
@@ -25,7 +24,7 @@ function Input({
         value={value}
         onChange={changed}
         id={id}
-        className={!valid && touched && classes.invalid}
+        className={!valid && touched ? classes.invalid : undefined}
       />
     );
     break;
@@ -35,7 +34,7 @@ function Input({
         value={value} 
         onChange={changed} 
         id={id}
-        className={!valid && touched && classes.invalid}>
+        className={!valid && touched ? classes.invalid : undefined}>
       </textarea>
     );
     break;
@@ -44,7 +43,7 @@ function Input({
       <select value={value} onChange={changed} id={id}>
         {config.options.map(option => (
           <option key={option.value} value={option.value}>
-            {option.value}
+            {option.displayValue}
           </option>
         ))}
       </select>
@@ -57,7 +56,7 @@ function Input({
     <div className={classes.Input}>
       <label htmlFor={id}>{label}</label>
       {inputElement}
-      {!valid && touched && <p>{errorMessage}</p>}
+      {!valid && touched ? <p>{errorMessage}</p> : undefined}
     </div>
   );
 };

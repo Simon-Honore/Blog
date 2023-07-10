@@ -1,7 +1,7 @@
 // librairies
 import { Outlet, useNavigate } from 'react-router-dom';
 import classes from './Contact.module.css';
-import routes from '../../routes';
+import routes from '../../config/routes';
 
 // components
 

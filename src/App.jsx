@@ -2,7 +2,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import routes from './routes';
+import routes from './config/routes';
 
 // components
 import Layout from './Hoc/Layout/Layout';

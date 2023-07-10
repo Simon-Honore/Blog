@@ -1,6 +1,6 @@
 //librairies 
 import classes from './Navigation.module.css';
-import routes from '../../../routes';
+import routes from '../../../config/routes';
 
 //components
 import NavigationItem from './NavigationItem/NavigationItem';
