@@ -11,6 +11,7 @@ function Input({
   elementType,
   valid,
   touched,
+  errorMessage,
   changed}) {
 		
   console.log(id, ' >> ','touched : ', touched,' valid : ', valid ,valid && touched);
@@ -56,6 +57,7 @@ function Input({
     <div className={classes.Input}>
       <label htmlFor={id}>{label}</label>
       {inputElement}
+      {!valid && touched && <p>{errorMessage}</p>}
     </div>
   );
 };

@@ -43,3 +43,11 @@
 .invalid:focus {
 	outline-color: #e8a9a9 !important;
 }
+
+.Input p {
+	color: #c54e4e;
+	text-align: start;
+	font-style: italic;
+	margin: 5px;
+	font-size: 0.95rem;
+}

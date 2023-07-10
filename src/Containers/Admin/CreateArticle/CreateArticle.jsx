@@ -23,7 +23,8 @@ function CreateArticle() {
         minLength: 5,
         maxLength: 85
       },
-      touched : false
+      touched : false,
+      errorMessage: 'Le titre est requis, il doit faire entre 5 et 85 caractères'
     },
     {
       id: 'content',
@@ -37,7 +38,8 @@ function CreateArticle() {
         minLength: 5,
         maxLength: 300
       },
-      touched : false
+      touched : false,
+      errorMessage: 'Le contenu est requis, il doit faire entre 5 et 300 caractères'
     },
     {
       id: 'author',
@@ -51,10 +53,11 @@ function CreateArticle() {
       valid : false,
       validation: {
         required: true,
-        minLength: 5,
+        minLength: 2,
         maxLength: 30
       },
-      touched : false
+      touched : false,
+      errorMessage: "L'auteur est requis, il doit faire entre 2 et 30 caractères"
     },
     {
       id: 'etat',
@@ -130,6 +133,7 @@ function CreateArticle() {
           elementType={input.elementType}
           valid={input.valid}
           touched={input.touched}
+          errorMessage={input.errorMessage}
           changed={(event) => inputChangedHandler(event, input.id)}
         />
       ))}
