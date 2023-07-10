@@ -16,14 +16,26 @@ function CreateArticle() {
         placeholder: "Titre de l'article"
       },
       value: '', 
-      label: 'Titre'
+      label: 'Titre',
+      valid : false,
+      validation: {
+        required: true,
+        minLength: 5,
+        maxLength: 85
+      }
     },
     {
       id: 'content',
       elementType: 'textarea',
       elementConfig : {},
       value: '', 
-      label: "Contenu de l'article"
+      label: "Contenu de l'article",
+      valid : false,
+      validation: {
+        required: true,
+        minLength: 5,
+        maxLength: 300
+      }
     },
     {
       id: 'author',
@@ -33,7 +45,13 @@ function CreateArticle() {
         placeholder: "Auteur de l'article"
       },
       value: '', 
-      label: 'Auteur'
+      label: 'Auteur',
+      valid : false,
+      validation: {
+        required: true,
+        minLength: 5,
+        maxLength: 30
+      }
     },
     {
       id: 'etat',
@@ -45,20 +63,56 @@ function CreateArticle() {
         ]
       },
       value: '', 
-      label: "État de l'article"
+      label: "État de l'article",
+      valid: true,
+      validation: {}
     }
   ]);
 
+  const [ formIsValid, setFormIsValid ] = useState(false);
+
   // fonctions
+  const chekValidity = (value, rules) => {
+    let isValid = true;
+    if(rules.required) {
+      isValid = value.trim() !== '' && isValid;
+    }
+    if(rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid;
+    }
+    if(rules.maxLength) {
+      isValid = value.length <= rules.maxLength && isValid;
+    }
+    return isValid;
+  };
+
   const inputChangedHandler = (event, id) => {
+    // change value
     const newInputs = [...inputs];
-    newInputs.find(input => input.id === id).value = event.target.value;
+    const targetInput = newInputs.find(input => input.id === id);
+    targetInput.value = event.target.value;
+
+    // check value 
+    targetInput.valid = chekValidity(event.target.value, targetInput.validation);
+
     setInputs(newInputs);
+
+    // check form
+    let validForm = true; 
+    for (let input in newInputs) {
+      validForm = newInputs[input].valid && validForm;
+    };
+    setFormIsValid(validForm);
+  };
+
+  const formSubmitHandler = event => {
+    event.preventDefault();
+    console.log('sending');
   };
 
   // variable JSX 
   const form = (
-    <form className={classes.CreateArticle}>
+    <form className={classes.CreateArticle} onSubmit={(event) => formSubmitHandler(event)}>
       {inputs.map(input => (
         <Input
           key={input.id}
@@ -70,7 +124,7 @@ function CreateArticle() {
           changed={(event) => inputChangedHandler(event, input.id)}
         />
       ))}
-      <button type='submit' className='button'>Envoyer</button>
+      <button type='submit' className='button' disabled={!formIsValid}>Envoyer</button>
     </form>
   );
 

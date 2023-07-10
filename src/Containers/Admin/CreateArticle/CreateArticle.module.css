@@ -5,3 +5,8 @@
 	max-width: 1200px;
 	padding: 15px 20px;
 }
+
+.CreateArticle button:disabled {
+	opacity: 0.3;
+	cursor: not-allowed;
+}
