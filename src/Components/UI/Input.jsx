@@ -9,8 +9,11 @@ function Input({
   label,
   config,
   elementType,
+  valid,
+  touched,
   changed}) {
-
+		
+  console.log(id, ' >> ','touched : ', touched,' valid : ', valid ,valid && touched);
   //variables JSX
   let inputElement;
   switch(elementType) {
@@ -21,12 +24,18 @@ function Input({
         value={value}
         onChange={changed}
         id={id}
+        className={!valid && touched && classes.invalid}
       />
     );
     break;
   case 'textarea':
     inputElement = (
-      <textarea value={value} onChange={changed} id={id}></textarea>
+      <textarea 
+        value={value} 
+        onChange={changed} 
+        id={id}
+        className={!valid && touched && classes.invalid}>
+      </textarea>
     );
     break;
   case 'select':

@@ -22,7 +22,8 @@ function CreateArticle() {
         required: true,
         minLength: 5,
         maxLength: 85
-      }
+      },
+      touched : false
     },
     {
       id: 'content',
@@ -35,7 +36,8 @@ function CreateArticle() {
         required: true,
         minLength: 5,
         maxLength: 300
-      }
+      },
+      touched : false
     },
     {
       id: 'author',
@@ -51,7 +53,8 @@ function CreateArticle() {
         required: true,
         minLength: 5,
         maxLength: 30
-      }
+      },
+      touched : false
     },
     {
       id: 'etat',
@@ -65,8 +68,9 @@ function CreateArticle() {
       value: '', 
       label: "État de l'article",
       valid: true,
-      validation: {}
-    }
+      validation: {},
+      touched : false
+    },
   ]);
 
   const [ formIsValid, setFormIsValid ] = useState(false);
@@ -91,6 +95,9 @@ function CreateArticle() {
     const newInputs = [...inputs];
     const targetInput = newInputs.find(input => input.id === id);
     targetInput.value = event.target.value;
+
+    // changed touched value
+    targetInput.touched = true;
 
     // check value 
     targetInput.valid = chekValidity(event.target.value, targetInput.validation);
@@ -121,6 +128,8 @@ function CreateArticle() {
           label={input.label}
           config={input.elementConfig}
           elementType={input.elementType}
+          valid={input.valid}
+          touched={input.touched}
           changed={(event) => inputChangedHandler(event, input.id)}
         />
       ))}

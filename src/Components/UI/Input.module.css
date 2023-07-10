@@ -35,3 +35,11 @@
 .Input select:focus {
 	outline-color: #8d93ab;
 }
+.invalid {
+	background-color: #f6e4e4;
+	border: 1px solid #e8a9a9 !important;
+}
+
+.invalid:focus {
+	outline-color: #e8a9a9 !important;
+}
