@@ -24,6 +24,14 @@
 	color: #393b44;
 }
 
+.Input textarea[id='catchphrase'] {
+	height: 120px;
+}
+
+.Input textarea[id='content'] {
+	height: 300px;
+}
+
 .Input input::placeholder,
 .Input textarea::placeholder,
 .Input select::placeholder {

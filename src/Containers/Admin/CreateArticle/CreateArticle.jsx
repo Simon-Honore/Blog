@@ -33,6 +33,21 @@ function CreateArticle() {
       errorMessage: 'Le titre est requis, il doit faire entre 5 et 85 caractères'
     },
     {
+      id: 'catchphrase',
+      elementType: 'textarea',
+      elementConfig : {},
+      value: '', 
+      label: "Accroche de l'article",
+      valid : false,
+      validation: {
+        required: true,
+        minLength: 5,
+        maxLength: 150
+      },
+      touched : false,
+      errorMessage: "L'accroche est requiss, elle doit faire entre 5 et 150 caractères"
+    },
+    {
       id: 'content',
       elementType: 'textarea',
       elementConfig : {},
@@ -42,10 +57,10 @@ function CreateArticle() {
       validation: {
         required: true,
         minLength: 5,
-        maxLength: 300
+        maxLength: 1200
       },
       touched : false,
-      errorMessage: 'Le contenu est requis, il doit faire entre 5 et 300 caractères'
+      errorMessage: 'Le contenu est requis, il doit faire entre 10 et 1200 caractères'
     },
     {
       id: 'author',
@@ -128,6 +143,7 @@ function CreateArticle() {
       const value = typeof input.value === 'string' ? input.value.trim() : input.value;
       return article[input.id] = value;
     });
+    article.date = new Date().toLocaleDateString();
     axios.post('/articles.json', article)
       .then(response => {
         console.log(response);
