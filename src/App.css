@@ -1,7 +1,7 @@
 .App {
 	background-color: #f1f3f8;
 	text-align: center;
-	min-height: 100dvh;
+	height: 100dvh;
 	color: #393b44;
 	font-size: 1rem;
 }

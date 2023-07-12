@@ -3,3 +3,14 @@
 	max-width: 1600px;
 	margin: 0 auto;
 }
+
+.Layout {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+}
+
+.Layout main {
+	flex-grow: 1;
+}
