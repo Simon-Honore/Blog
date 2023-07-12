@@ -13,16 +13,26 @@ function Home() {
 	
   // life cycle
   useEffect(() => {
-    axios.get('/articles.json?orderBy="date"&limitToLast=3')
+    axios.get('/articles.json?orderBy="date"')
       .then(response => {
-        const articlesArray = [];
+        let articlesArray = [];
         for (let key in response.data) {
           articlesArray.push({
             ...response.data[key],
             id: key
           });
         }
-        setArticles(articlesArray.reverse());
+
+        // timeline 
+        articlesArray.reverse();
+
+        // filter draft
+        articlesArray = articlesArray.filter(article => article.draft === 'false');
+
+        // limit to 3
+        articlesArray = articlesArray.slice(0, 3);
+
+        setArticles(articlesArray);
       })
       .catch(error => console.log(error));
   }, []);

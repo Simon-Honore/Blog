@@ -1,4 +1,4 @@
-.DisplaydArticle {
+.DisplayedArticle {
 	width: 300px;
 	padding: 15px;
 	margin: 10px;
@@ -6,8 +6,11 @@
 	border-radius: 5px;
 	cursor: pointer;
 	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
-.DisplaydArticle:hover {
+.DisplayedArticle:hover {
 	box-shadow: 0 14px 28px #8d93ab, 0 10px 10px #d6e0f0;
 }

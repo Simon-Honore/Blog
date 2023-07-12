@@ -9,15 +9,22 @@ function Articles() {
 
   // life cycle
   useEffect(() => {
-    axios.get('/articles.json')
+    axios.get('/articles.json?orderBy="date"')
       .then(response => {
-        const articlesArray = [];
+        let articlesArray = [];
         for (let key in response.data) {
           articlesArray.push({
             ...response.data[key],
             id: key
           });
         }
+
+        // timeline 
+        articlesArray.reverse();
+
+        // filter draft
+        articlesArray = articlesArray.filter(article => article.draft === 'false');
+				
         setArticles(articlesArray.reverse());
       })
       .catch(error => console.log(error));

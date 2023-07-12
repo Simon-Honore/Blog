@@ -34,7 +34,7 @@ function Article() {
         }
       })
       .catch(error => console.log(error));
-  }, [slug]);
+  }, [navigate, slug]);
 
   // functions
   const deleteClickedHandler = () => {

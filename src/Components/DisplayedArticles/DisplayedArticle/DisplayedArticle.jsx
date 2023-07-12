@@ -1,9 +1,9 @@
 // librairies
-import classes from './DisplaydArticle.module.css';
+import classes from './DisplayedArticle.module.css';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../../config/routes';
 
-function DisplaydArticle(props) {
+function DisplayedArticle(props) {
   // hooks
   const navigate = useNavigate();
 
@@ -13,7 +13,7 @@ function DisplaydArticle(props) {
   };
 
   return (
-    <article className={classes.DisplaydArticle} onClick={() => navigateToArticle(props.article.slug)}>
+    <article className={classes.DisplayedArticle} onClick={() => navigateToArticle(props.article.slug)}>
       <h2>{props.article.title}</h2>
       <p>{props.article.catchphrase}</p>
       <small>{props.article.author}</small>
@@ -21,4 +21,4 @@ function DisplaydArticle(props) {
   );
 };
 
-export default DisplaydArticle;
+export default DisplayedArticle;
