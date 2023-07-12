@@ -4,7 +4,7 @@ const routes = {
   EMAIL: 'email',
   PHONE: 'telephone',
   ARTICLES: '/articles',
-  CREATEARTICLE: '/admin/creer-un-article'
+  MANAGEARTICLE: '/admin/article'
 };
 
 export default routes;

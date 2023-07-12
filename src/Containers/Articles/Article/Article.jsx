@@ -1,14 +1,16 @@
 // librairies
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from '../../../config/axios-firebase';
 import classes from './Article.module.css';
+import routes from '../../../config/routes';
 
 // components 
 
 function Article() {
   // hooks
   const { slug } = useParams();
+  const navigate = useNavigate();
 
   // states
   const [article, setArticle] = useState({});
@@ -17,9 +19,16 @@ function Article() {
   useEffect(() => {
     axios.get(`/articles.json?orderBy="slug"&equalTo="${slug}"`)
       .then(response => {
+        // if the article does not exist
+        if (Object.keys(response.data).length === 0) {
+          navigate(routes.HOME, {replace: true});
+        }
+
+        // if the article exist
         for (let key in response.data) {
           setArticle({
             ...response.data[key],
+            id: key,
             date: response.data[key].date.slice(0, 10)
           });
         }
@@ -27,13 +36,28 @@ function Article() {
       .catch(error => console.log(error));
   }, [slug]);
 
+  // functions
+  const deleteClickedHandler = () => {
+    axios.delete(`/articles/${article.id}.json`)
+      .then(() => {
+        navigate(routes.ARTICLES, {replace: true});
+      })
+      .catch(error => console.log(error));
+  };
+
   return (
     <div>
       <h1>{article.title}</h1>
       <article className={`${classes.Article} container`}>
         <p className={classes.catchphrase}>{article.catchphrase}</p>
-        <p className={classes.author}>{article.content}</p>
-        <div>
+        <p className={classes.content}>{article.content}</p>
+        <div className={classes.buttonContainer}>
+          <Link to={routes.MANAGEARTICLE} state={{article: article}} >
+          	<button className='button' >Modifier</button>
+          </Link>
+          <button className='button' onClick={deleteClickedHandler}>Supprimer</button>
+        </div>
+        <div className={classes.details}>
           <span>{article.author}</span>
 					Publié le {article.date}
         </div>

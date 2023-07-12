@@ -13,7 +13,7 @@ import Article from './Containers/Articles/Article/Article';
 import NotFound from './Containers/NotFound/NotFound';
 import Email from './Containers/Contact/Email/Email';
 import Phone from './Containers/Contact/Phone/Phone';
-import CreateArticle from './Containers/Admin/CreateArticle/CreateArticle';
+import ManageArticle from './Containers/Admin/ManageArticle/ManageArticle';
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
           </Route>
           <Route path={routes.ARTICLES} element={<Articles />} />
           <Route path={routes.ARTICLES + '/:slug'} element={<Article />} />
-          <Route path={routes.CREATEARTICLE} element={<CreateArticle />} />
+          <Route path={routes.MANAGEARTICLE} element={<ManageArticle />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Layout>

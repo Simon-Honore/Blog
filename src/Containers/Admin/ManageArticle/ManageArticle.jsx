@@ -1,16 +1,17 @@
 // librairies 
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import classes from './CreateArticle.module.css';
+import { useLocation, useNavigate } from 'react-router-dom';
+import classes from './ManageArticle.module.css';
 import axios from '../../../config/axios-firebase';
 import routes from '../../../config/routes';
 
 // composants
 import Input from '../../../Components/UI/Input';
 
-function CreateArticle() {
+function ManageArticle() {
   // hooks
   const navigate = useNavigate();
+  const location = useLocation();
 
   // states 
   const [inputs, setInputs] = useState([
@@ -21,9 +22,9 @@ function CreateArticle() {
         type: 'text',
         placeholder: "Titre de l'article"
       },
-      value: '', 
+      value: location.state && location.state.article ? location.state.article.title : '', 
       label: 'Titre',
-      valid : false,
+      valid : location.state && location.state.article ? true : false,
       validation: {
         required: true,
         minLength: 5,
@@ -36,9 +37,9 @@ function CreateArticle() {
       id: 'catchphrase',
       elementType: 'textarea',
       elementConfig : {},
-      value: '', 
+      value: location.state && location.state.article ? location.state.article.catchphrase : '', 
       label: "Accroche de l'article",
-      valid : false,
+      valid : location.state && location.state.article ? true : false,
       validation: {
         required: true,
         minLength: 5,
@@ -51,9 +52,9 @@ function CreateArticle() {
       id: 'content',
       elementType: 'textarea',
       elementConfig : {},
-      value: '', 
+      value: location.state && location.state.article ? location.state.article.content : '', 
       label: "Contenu de l'article",
-      valid : false,
+      valid : location.state && location.state.article ? true : false,
       validation: {
         required: true,
         minLength: 5,
@@ -69,9 +70,9 @@ function CreateArticle() {
         type: 'text',
         placeholder: "Auteur de l'article"
       },
-      value: '', 
+      value: location.state && location.state.article ? location.state.article.author : '', 
       label: 'Auteur',
-      valid : false,
+      valid : location.state && location.state.article ? true : false,
       validation: {
         required: true,
         minLength: 2,
@@ -89,7 +90,7 @@ function CreateArticle() {
           {value: false, displayValue: 'Publié'}
         ]
       },
-      value: true, 
+      value: location.state && location.state.article ? location.state.article.draft : '', 
       label: "État de l'article",
       valid: true,
       validation: {},
@@ -97,7 +98,7 @@ function CreateArticle() {
     },
   ]);
 
-  const [ formIsValid, setFormIsValid ] = useState(false);
+  const [ formIsValid, setFormIsValid ] = useState(location.state && location.state.article ? true : false);
 
   // fonctions
   const chekValidity = (value, rules) => {
@@ -166,17 +167,27 @@ function CreateArticle() {
     article.date = new Date().toLocaleString();
     article.slug = generateSlug(article.title);
 		
-    // post API Firebase
-    axios.post('/articles.json', article)
-      .then(response => {
-        navigate(routes.ARTICLES, {replace: true});
-      })
-      .catch(error => console.log(error));
+    // call API 
+    if (location.state && location.state.article) {
+      // put
+      axios.put(`/articles/${article.id}.json`, article)
+        .then(response => {
+          navigate(`${routes.ARTICLES}/${article.slug}`, {replace: true});
+        })
+        .catch(error => console.log(error));
+    } else {
+      // post
+      axios.post('/articles.json', article)
+        .then(response => {
+          navigate(routes.ARTICLES, {replace: true});
+        })
+        .catch(error => console.log(error));
+    };
   };
 
   // variable JSX 
-  const form = (
-    <form className={classes.CreateArticle} onSubmit={(event) => formSubmitHandler(event)}>
+  const formJSX = (
+    <form className={classes.ManageArticle} onSubmit={(event) => formSubmitHandler(event)}>
       {inputs.map(input => (
         <Input
           key={input.id}
@@ -191,16 +202,30 @@ function CreateArticle() {
           changed={(event) => inputChangedHandler(event, input.id)}
         />
       ))}
-      <button type='submit' className='button' disabled={!formIsValid}>Enregistrer un article</button>
+      <button type='submit' className='button' disabled={!formIsValid}>
+        {location.state && location.state.article ? (
+          'Modifier un article'
+        ) : (
+          'Créer un article'
+        )}
+      </button>
     </form>
+  );
+
+  const pageTitleJSX = (
+    location.state && location.state.article ? (
+      <h1>Modifier un article</h1>
+    ) : (
+      <h1>Créer un article</h1>
+    )
   );
 
   return (
     <div className='container'>
-      <h1>Créer un article</h1>
-      {form}
+      {pageTitleJSX}
+      {formJSX}
     </div>
   );
 };
 
-export default CreateArticle;
+export default ManageArticle;
