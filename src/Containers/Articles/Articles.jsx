@@ -22,10 +22,10 @@ function Articles() {
         // timeline 
         articlesArray.reverse();
 
-        // filter draft
-        articlesArray = articlesArray.filter(article => article.draft === 'false');
+        // // filter draft
+        // articlesArray = articlesArray.filter(article => article.draft === 'false');
 				
-        setArticles(articlesArray.reverse());
+        setArticles(articlesArray);
       })
       .catch(error => console.log(error));
   }, []);

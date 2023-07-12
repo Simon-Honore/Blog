@@ -16,7 +16,9 @@ function DisplayedArticle(props) {
     <article className={classes.DisplayedArticle} onClick={() => navigateToArticle(props.article.slug)}>
       <h2>{props.article.title}</h2>
       <p>{props.article.catchphrase}</p>
-      <small>{props.article.author}</small>
+      <small>
+        {props.article.author}
+        {props.article.draft === "true" || props.article.draft === true ? <span className='draft'>Brouillon</span> : ''}</small>
     </article>
   );
 };

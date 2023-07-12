@@ -48,6 +48,7 @@ function Article() {
   return (
     <div>
       <h1>{article.title}</h1>
+
       <article className={`${classes.Article} container`}>
         <p className={classes.catchphrase}>{article.catchphrase}</p>
         <p className={classes.content}>{article.content}</p>
@@ -57,9 +58,11 @@ function Article() {
           </Link>
           <button className='button' onClick={deleteClickedHandler}>Supprimer</button>
         </div>
+
         <div className={classes.details}>
           <span>{article.author}</span>
 					Publié le {article.date}
+          {article.draft === "true" || article.draft === true ? <span className='draft'>Brouillon</span> : ''}
         </div>
       </article>
     </div>

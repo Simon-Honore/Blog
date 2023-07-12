@@ -1,0 +1,16 @@
+.linkContainer {
+	/* margin: 15px 20%; */
+	width: 930px;
+	margin: 15px auto;
+	text-align: right;
+}
+
+.linkContainer a {
+	text-decoration: none;
+	color: #8d1a25;
+	transition: 300ms;
+}
+
+.linkContainer a:hover {
+	color: #8d93ab;
+}
