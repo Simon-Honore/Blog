@@ -114,6 +114,24 @@ function CreateArticle() {
     return isValid;
   };
 
+  const generateSlug = (str) => {
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
+    str = str.toLowerCase();
+  
+    // remove accents, swap ñ for n, etc
+    var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+    var to   = "aaaaeeeeiiiioooouuuunc------";
+    for (var i=0, l=from.length ; i<l ; i++) {
+      str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+      .replace(/\s+/g, '-') // collapse whitespace and replace by -
+      .replace(/-+/g, '-'); // collapse dashes
+
+    return str;
+  };
+
   const inputChangedHandler = (event, id) => {
     // change value
     const newInputs = [...inputs];
@@ -138,12 +156,17 @@ function CreateArticle() {
 
   const formSubmitHandler = event => {
     event.preventDefault();
+
+    // creating an objet of an article
     const article = {};
     inputs.map(input => {
       const value = typeof input.value === 'string' ? input.value.trim() : input.value;
       return article[input.id] = value;
     });
     article.date = new Date().toLocaleString();
+    article.slug = generateSlug(article.title);
+		
+    // post API Firebase
     axios.post('/articles.json', article)
       .then(response => {
         navigate(routes.ARTICLES, {replace: true});

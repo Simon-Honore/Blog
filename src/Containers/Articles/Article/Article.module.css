@@ -1,0 +1,25 @@
+.Article {
+	padding: 15px 30px;
+}
+
+.catchphrase {
+	color: #8d93ab;
+	margin-bottom: 30px;
+}
+
+.author {
+	text-align: justify;
+	margin-bottom: 40px;
+}
+
+.Article div {
+	padding: 20px;
+	background-color: #d6e0f0;
+	border-radius: 5px;
+	margin: 0 -30px;
+}
+
+.Article div span {
+	font-weight: 700;
+	margin-right: 15px;
+}

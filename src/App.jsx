@@ -26,7 +26,7 @@ function App() {
             <Route path={routes.PHONE} element={<Phone />} /> 
           </Route>
           <Route path={routes.ARTICLES} element={<Articles />} />
-          <Route path={routes.ARTICLES + '/:articleId'} element={<Article />} />
+          <Route path={routes.ARTICLES + '/:slug'} element={<Article />} />
           <Route path={routes.CREATEARTICLE} element={<CreateArticle />} />
           <Route path='*' element={<NotFound />} />
         </Routes>

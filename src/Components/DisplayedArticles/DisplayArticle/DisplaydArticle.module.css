@@ -4,4 +4,10 @@
 	margin: 10px;
 	background-color: #d6e0f0;
 	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.DisplaydArticle:hover {
+	box-shadow: 0 14px 28px #8d93ab, 0 10px 10px #d6e0f0;
 }
