@@ -6,7 +6,6 @@ import DisplaydArticles from '../../Components/DisplayedArticles/DisplayedArticl
 function Articles() {
   // states 
   const [articles, setArticles] = useState([]);
-  console.log('articles >> ', articles);
 
   // life cycle
   useEffect(() => {
@@ -19,7 +18,7 @@ function Articles() {
             id: key
           });
         }
-        setArticles(articlesArray);
+        setArticles(articlesArray.reverse());
       })
       .catch(error => console.log(error));
   }, []);

@@ -143,10 +143,9 @@ function CreateArticle() {
       const value = typeof input.value === 'string' ? input.value.trim() : input.value;
       return article[input.id] = value;
     });
-    article.date = new Date().toLocaleDateString();
+    article.date = new Date().toLocaleString();
     axios.post('/articles.json', article)
       .then(response => {
-        console.log(response);
         navigate(routes.ARTICLES, {replace: true});
       })
       .catch(error => console.log(error));
