@@ -1,10 +1,12 @@
 // librairies
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import routes from './config/routes';
 import appFirebase from './config/firebase';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { CurrentUserContext } from './context/currentUserContext';
+
 
 // components
 import Layout from './Hoc/Layout/Layout';
@@ -19,8 +21,8 @@ import ManageArticle from './Containers/Admin/ManageArticle/ManageArticle';
 import Authentication from './Containers/Security/Authentication/Authentication';
 
 function App() {
-	  // State
-  const [user, setUser] = useState('');
+  // context
+  const { user, setUser } = useContext(CurrentUserContext);
 
   // Life cycle
   useEffect(() => {
@@ -33,6 +35,7 @@ function App() {
     onAuthStateChanged(auth, user => {
       if(user) {
         setUser(user);
+        // currentUser = user;
       } else {
         setUser('');
       }
@@ -50,8 +53,8 @@ function App() {
           </Route>
           <Route path={routes.ARTICLES} element={<Articles />} />
           <Route path={routes.ARTICLES + '/:slug'} element={<Article />} />
-          <Route path={routes.MANAGEARTICLE} element={<ManageArticle />} />
-          <Route path={routes.AUTHENTICATION} element={<Authentication />} />
+          {user ? <Route path={routes.MANAGEARTICLE} element={<ManageArticle />} /> : null}
+          {!user ? <Route path={routes.AUTHENTICATION} element={<Authentication />} /> : null}
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Layout>

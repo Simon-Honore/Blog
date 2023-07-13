@@ -1,13 +1,12 @@
 // librairies
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from '../../../config/axios-firebase';
 import classes from './Article.module.css';
 import routes from '../../../config/routes';
 import appFirebase from '../../../config/firebase';
 import { getAuth, getIdToken } from 'firebase/auth';
-
-// components 
+import { CurrentUserContext } from '../../../context/currentUserContext';
 
 function Article() {
   // hooks
@@ -16,6 +15,9 @@ function Article() {
 
   // states
   const [article, setArticle] = useState({});
+
+  // context 
+  const { user } = useContext(CurrentUserContext);
 
   // useEffect
   useEffect(() => {
@@ -56,6 +58,16 @@ function Article() {
     }
   };
 
+  // variables JSX 
+  const buttonsJSX = (
+    <div className={classes.buttonContainer}>
+      <Link to={routes.MANAGEARTICLE} state={{article: article}} >
+        <button className='button' >Modifier</button>
+      </Link>
+      <button className='button' onClick={deleteClickedHandler}>Supprimer</button>
+    </div>
+  );
+
   return (
     <div>
       <h1>{article.title}</h1>
@@ -63,12 +75,7 @@ function Article() {
       <article className={`${classes.Article} container`}>
         <p className={classes.catchphrase}>{article.catchphrase}</p>
         <p className={classes.content}>{article.content}</p>
-        <div className={classes.buttonContainer}>
-          <Link to={routes.MANAGEARTICLE} state={{article: article}} >
-          	<button className='button' >Modifier</button>
-          </Link>
-          <button className='button' onClick={deleteClickedHandler}>Supprimer</button>
-        </div>
+        {user ? buttonsJSX : null}
 
         <div className={classes.details}>
           <span>{article.author}</span>
