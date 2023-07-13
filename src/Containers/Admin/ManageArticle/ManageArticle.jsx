@@ -4,6 +4,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './ManageArticle.module.css';
 import axios from '../../../config/axios-firebase';
 import routes from '../../../config/routes';
+import { checkValidity } from '../../../shared/utility';
+import appFirebase from '../../../config/firebase';
+import { getAuth, getIdToken} from "firebase/auth";
 
 // composants
 import Input from '../../../Components/UI/Input';
@@ -100,20 +103,7 @@ function ManageArticle() {
 
   const [ formIsValid, setFormIsValid ] = useState(location.state && location.state.article ? true : false);
 
-  // fonctions
-  const chekValidity = (value, rules) => {
-    let isValid = true;
-    if(rules.required) {
-      isValid = value.trim() !== '' && isValid;
-    }
-    if(rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-    if(rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-    return isValid;
-  };
+  // functions
 
   const generateSlug = (str) => {
     str = str.replace(/^\s+|\s+$/g, ''); // trim
@@ -143,7 +133,7 @@ function ManageArticle() {
     targetInput.touched = true;
 
     // check value 
-    targetInput.valid = chekValidity(event.target.value, targetInput.validation);
+    targetInput.valid = checkValidity(event.target.value, targetInput.validation);
 
     setInputs(newInputs);
 
@@ -166,23 +156,32 @@ function ManageArticle() {
     });
     article.date = new Date().toLocaleString();
     article.slug = generateSlug(article.title);
-		
-    // call API 
-    if (location.state && location.state.article) {
-      // put
-      axios.put(`/articles/${article.id}.json`, article)
-        .then(response => {
-          navigate(`${routes.ARTICLES}/${article.slug}`, {replace: true});
+
+    // get token 
+    const auth = getAuth(appFirebase);
+    const { currentUser } = auth;
+    if (currentUser) {
+      getIdToken(currentUser, true)
+        .then(token => {
+				    // call API 
+          if (location.state && location.state.article) {
+          // put
+            axios.put(`/articles/${location.state.article.id}.json?auth=${token}`, article)
+              .then(response => {
+                navigate(`${routes.ARTICLES}/${article.slug}`, {replace: true});
+              })
+              .catch(error => console.log(error));
+          } else {
+          // post
+            axios.post(`/articles.json?auth=${token}`, article)
+              .then(response => {
+                navigate(routes.ARTICLES, {replace: true});
+              })
+              .catch(error => console.log(error));
+          };
         })
         .catch(error => console.log(error));
-    } else {
-      // post
-      axios.post('/articles.json', article)
-        .then(response => {
-          navigate(routes.ARTICLES, {replace: true});
-        })
-        .catch(error => console.log(error));
-    };
+    }
   };
 
   // variable JSX 

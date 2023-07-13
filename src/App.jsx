@@ -1,8 +1,10 @@
 // librairies
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import routes from './config/routes';
+import appFirebase from './config/firebase';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 // components
 import Layout from './Hoc/Layout/Layout';
@@ -14,8 +16,29 @@ import NotFound from './Containers/NotFound/NotFound';
 import Email from './Containers/Contact/Email/Email';
 import Phone from './Containers/Contact/Phone/Phone';
 import ManageArticle from './Containers/Admin/ManageArticle/ManageArticle';
+import Authentication from './Containers/Security/Authentication/Authentication';
 
 function App() {
+	  // State
+  const [user, setUser] = useState('');
+
+  // Life cycle
+  useEffect(() => {
+    authListener();
+  }, []);
+	
+  // Function
+  const authListener = () => {
+    const auth = getAuth(appFirebase);
+    onAuthStateChanged(auth, user => {
+      if(user) {
+        setUser(user);
+      } else {
+        setUser('');
+      }
+    });
+  }; 
+
   return (
     <div className="App">
       <Layout>
@@ -28,6 +51,7 @@ function App() {
           <Route path={routes.ARTICLES} element={<Articles />} />
           <Route path={routes.ARTICLES + '/:slug'} element={<Article />} />
           <Route path={routes.MANAGEARTICLE} element={<ManageArticle />} />
+          <Route path={routes.AUTHENTICATION} element={<Authentication />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Layout>

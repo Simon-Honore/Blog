@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from '../../../config/axios-firebase';
 import classes from './Article.module.css';
 import routes from '../../../config/routes';
+import appFirebase from '../../../config/firebase';
+import { getAuth, getIdToken } from 'firebase/auth';
 
 // components 
 
@@ -38,11 +40,20 @@ function Article() {
 
   // functions
   const deleteClickedHandler = () => {
-    axios.delete(`/articles/${article.id}.json`)
-      .then(() => {
-        navigate(routes.ARTICLES, {replace: true});
-      })
-      .catch(error => console.log(error));
+    // get token 
+    const auth = getAuth(appFirebase);
+    const { currentUser } = auth;
+    if (currentUser) {
+      getIdToken(currentUser, true)
+        .then(token => {
+          axios.delete(`/articles/${article.id}.json?auth=${token}`)
+            .then(() => {
+              navigate(routes.ARTICLES, {replace: true});
+            })
+            .catch(error => console.log(error));
+        })
+        .catch(error => console.log(error));
+    }
   };
 
   return (
