@@ -7,6 +7,7 @@ import routes from '../../../config/routes';
 import { checkValidity } from '../../../shared/utility';
 import appFirebase from '../../../config/firebase';
 import { getAuth, getIdToken} from "firebase/auth";
+import { toast } from 'react-toastify';
 
 // composants
 import Input from '../../../Components/UI/Input';
@@ -168,6 +169,7 @@ function ManageArticle() {
           // put
             axios.put(`/articles/${location.state.article.id}.json?auth=${token}`, article)
               .then(response => {
+                toast.success('Article modifié avec succès.');
                 navigate(`${routes.ARTICLES}/${article.slug}`, {replace: true});
               })
               .catch(error => console.log(error));
@@ -175,6 +177,7 @@ function ManageArticle() {
           // post
             axios.post(`/articles.json?auth=${token}`, article)
               .then(response => {
+                toast.success('Article ajouté avec succès.');
                 navigate(routes.ARTICLES, {replace: true});
               })
               .catch(error => console.log(error));

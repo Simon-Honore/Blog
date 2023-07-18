@@ -7,6 +7,7 @@ import routes from '../../../config/routes';
 import appFirebase from '../../../config/firebase';
 import { getAuth, getIdToken } from 'firebase/auth';
 import { CurrentUserContext } from '../../../context/currentUserContext';
+import { toast } from 'react-toastify';
 
 function Article() {
   // hooks
@@ -25,7 +26,8 @@ function Article() {
       .then(response => {
         // if the article does not exist
         if (Object.keys(response.data).length === 0) {
-          navigate(routes.HOME, {replace: true});
+          toast.error('Cet article n\'existe pas.');
+          navigate(routes.HOME);
         }
 
         // if the article exist
@@ -50,6 +52,7 @@ function Article() {
         .then(token => {
           axios.delete(`/articles/${article.id}.json?auth=${token}`)
             .then(() => {
+              toast.success('Article supprimé avec succès.');
               navigate(routes.ARTICLES, {replace: true});
             })
             .catch(error => console.log(error));

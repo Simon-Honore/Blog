@@ -5,6 +5,7 @@ import appFirebase from '../../../config/firebase';
 import { getAuth, signOut } from 'firebase/auth';
 import { useContext } from 'react';
 import { CurrentUserContext } from '../../../context/currentUserContext';
+import { toast } from 'react-toastify';
 
 //components
 import NavigationItem from './NavigationItem/NavigationItem';
@@ -23,6 +24,7 @@ function Navigation() {
   // functions 
   const logOutClickedHandler = () => {
     signOut(auth);
+    toast.success('À bientôt');
     navigate(routes.HOME);
   };
 	

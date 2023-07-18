@@ -5,6 +5,7 @@ import { checkValidity } from '../../../shared/utility';
 import classes from './Authentication.module.css';
 import appFirebase from '../../../config/firebase';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from 'react-toastify';
 
 // components
 import Input from '../../../Components/UI/Input';
@@ -90,6 +91,7 @@ function Authentication() {
 
     createUserWithEmailAndPassword(auth, user.email, user.password)
       .then(response => {
+        toast.success('Bienvenue.');
         navigate(routes.HOME);
       })
       .catch((error) => {
@@ -111,6 +113,7 @@ function Authentication() {
     
     signInWithEmailAndPassword(auth, user.email, user.password)
       .then(response => {
+        toast.success('Ravi de vous revoir.');
         navigate(routes.HOME);
       })
       .catch(error => {
