@@ -1,9 +1,9 @@
 //librairies
 import classes from './Header.module.css';
+import logo from '../../Assets/logo.png';
 
 //components 
 import Navigation from './Navigation/Navigation';
-import logo from '../../Assets/logo.png';
 
 function Header() {
   return (
