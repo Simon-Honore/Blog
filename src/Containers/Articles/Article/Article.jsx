@@ -31,16 +31,18 @@ function Article() {
       .then(response => {
         // if the article does not exist
         if (Object.keys(response.data).length === 0) {
-          toast.error('Cet article n\'existe pas.');
-          navigate(routes.HOME);
-        }
-
-        // if the article exist
-        for (let key in response.data) {
-          setArticle({
-            ...response.data[key],
-            id: key
+          toast.error('Cet article n\'existe pas.', {
+            toastId: 'articleNotFound'
           });
+          navigate(routes.HOME, {replace: true});
+        } else {
+          // if the article exist
+          for (let key in response.data) {
+            setArticle({
+              ...response.data[key],
+              id: key
+            });
+          }
         }
       })
       .catch(error => console.log(error));
