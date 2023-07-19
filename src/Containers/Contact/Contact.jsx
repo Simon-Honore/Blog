@@ -2,12 +2,18 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import classes from './Contact.module.css';
 import routes from '../../config/routes';
+import { useEffect } from 'react';
 
 // components
 
 function Contact() {
   // hooks
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = 'Contact';
+  });
+
   // functions
   const emailClickedHandler = () => {
     navigate(routes.EMAIL);

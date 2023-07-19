@@ -30,6 +30,10 @@ function Articles() {
       .catch(error => console.log(error));
   }, []);
 
+  useEffect(() => {
+    document.title = 'Articles';
+  });
+
   return (
     <div>
       <h1>Articles</h1>

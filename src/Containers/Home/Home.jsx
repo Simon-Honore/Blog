@@ -38,6 +38,10 @@ function Home() {
       .catch(error => console.log(error));
   }, []);
 
+  useEffect(() => {
+    document.title = 'Blog de Simon Honoré';
+  });
+
   return (
     <div className='container'>
       <h1>Accueil</h1>

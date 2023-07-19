@@ -46,6 +46,10 @@ function Article() {
       .catch(error => console.log(error));
   }, [navigate, slug]);
 
+  useEffect(() => {
+    document.title = article.title;
+  });
+
   // functions
   const deleteClickedHandler = () => {
     // get token 

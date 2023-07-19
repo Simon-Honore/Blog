@@ -1,5 +1,5 @@
 // librairies 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './ManageArticle.module.css';
 import axios from '../../../config/axios-firebase';
@@ -103,6 +103,15 @@ function ManageArticle() {
   ]);
 
   const [ formIsValid, setFormIsValid ] = useState(location.state && location.state.article ? true : false);
+
+  // useEffect
+  useEffect(() => {
+    if (location.state && location.state.article) {
+      document.title = 'Modifier un article';
+    } else {
+      document.title = 'Créer un article';
+    }
+  });
 
   // functions
 

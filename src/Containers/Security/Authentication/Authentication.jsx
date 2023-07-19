@@ -1,5 +1,5 @@
 // librairies
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { checkValidity } from '../../../shared/utility';
 import classes from './Authentication.module.css';
@@ -17,6 +17,11 @@ function Authentication() {
 
   // auth firebase 
   const auth = getAuth(appFirebase);
+
+  // useEfeect
+  useEffect(() => {
+    document.title = 'Authentification';
+  });
 
   // states 
   const [inputs, setInputs] = useState([
