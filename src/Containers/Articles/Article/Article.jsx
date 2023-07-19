@@ -8,6 +8,8 @@ import appFirebase from '../../../config/firebase';
 import { getAuth, getIdToken } from 'firebase/auth';
 import { CurrentUserContext } from '../../../context/currentUserContext';
 import { toast } from 'react-toastify';
+import moment from 'moment';
+import 'moment/locale/fr';
 
 function Article() {
   // hooks
@@ -19,6 +21,9 @@ function Article() {
 
   // context 
   const { user } = useContext(CurrentUserContext);
+
+  // moment
+  moment.updateLocale('fr');
 
   // useEffect
   useEffect(() => {
@@ -34,8 +39,7 @@ function Article() {
         for (let key in response.data) {
           setArticle({
             ...response.data[key],
-            id: key,
-            date: response.data[key].date.slice(0, 10)
+            id: key
           });
         }
       })
@@ -82,7 +86,7 @@ function Article() {
 
         <div className={classes.details}>
           <span>{article.author}</span>
-					Publié le {article.date}
+					Publié {moment.unix(article.date / 1000).fromNow()}
           {article.draft === "true" || article.draft === true ? <span className='draft'>Brouillon</span> : ''}
         </div>
       </article>

@@ -155,7 +155,7 @@ function ManageArticle() {
       const value = typeof input.value === 'string' ? input.value.trim() : input.value;
       return article[input.id] = value;
     });
-    article.date = new Date().toLocaleString();
+    article.date = Date.now();
     article.slug = generateSlug(article.title);
 
     // get token 
